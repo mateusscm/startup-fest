@@ -18,7 +18,7 @@ export const PanelStartups = styled.div`
   margin-top: 100px;
   width: 1000px;
   background-color: transparent;
-  height: 500px;
+  height: auto;
   transition: width 0.5s ease-in-out;
 
   @media screen and (max-width: 1024px) {
@@ -30,7 +30,7 @@ export const PanelStartups = styled.div`
   }
 
   @media screen and (max-width: 600px) {
-    width: 95vw;
+    width: 90vw;
     margin-top: 75px;
   }
 
@@ -121,13 +121,28 @@ export const ImageStartup = styled.div`
 
 export const SampleCard = styled.div`
   width: 100%;
-  height: 300px;
+  min-height: 300px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   position: relative;
   border-radius: 5px;
   background-color: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+
+  ${({ open }) =>
+    open &&
+    css`
+      margin-bottom: 20px;
+    `}
+
+  .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 300px;
+  }
 
   .container-img {
     height: 270px;
@@ -185,6 +200,110 @@ export const SampleCard = styled.div`
       bottom: -3px;
       z-index: -1;
       transform: rotate(45deg);
+    }
+  }
+
+  .button-open {
+    padding: 10px;
+    border-style: none;
+    background-color: #ff5722;
+    border-radius: 17px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+    & svg,
+    path {
+      fill: white;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: #e46740;
+      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .content,
+    .collapsable {
+      flex-direction: column;
+      height: auto;
+      padding-top: 10px;
+
+      .container-img {
+        width: 100%;
+      }
+    }
+  }
+
+  .collapsable {
+    transition: height 800ms;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    ${({ open }) =>
+      open
+        ? css`
+            height: auto;
+            padding: 10px;
+          `
+        : css`
+            height: 0px;
+          `}
+  }
+
+  .collapsable > .explanation,
+  .rating {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .collapsable {
+    .explanation {
+      .title {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+
+      .subtitle {
+        margin-bottom: 5px;
+        color: #606060;
+        font-weight: bold;
+      }
+
+      .desc {
+        margin-bottom: 3px;
+      }
+    }
+
+    .rating {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+
+      .rate {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        & > span {
+          margin-right: 10px;
+          font-size: 1.3rem;
+        }
+      }
+
+      @media screen and (max-width: 800px) {
+        padding-left: 0px;
+      }
     }
   }
 `;
