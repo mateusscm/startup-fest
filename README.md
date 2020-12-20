@@ -1,3 +1,5 @@
+![startup](https://user-images.githubusercontent.com/39131869/102725428-773f7400-42f5-11eb-882e-65f27e897bb3.png)
+
 # StartUp Fest
 
 ## Installing and Running the APP 
