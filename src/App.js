@@ -1,12 +1,16 @@
+import { BrowserRouter } from "react-router-dom";
 import GlobalStyles from "./styles/global";
-import AllStartupPage from "./views/AllStartupPage";
+import { routes } from "./config/routes";
+import HeaderNavigation from "./components/HeaderNavigation";
+import MainRoutes from "./components/MainRoutes";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyles />
-      <AllStartupPage />
-    </>
+      <HeaderNavigation routes={routes} />
+      <MainRoutes routes={routes} />
+    </BrowserRouter>
   );
 }
 
