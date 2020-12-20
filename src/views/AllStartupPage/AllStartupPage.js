@@ -3,14 +3,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 
-import { TopBackground, PanelStartups, LogoEdit } from "./AllStartupPage.style";
+import { PanelStartups } from "./AllStartupPage.style";
 
 import Slider from "react-slick";
 import Loading from "../../components/Loading";
 import CardCarousel from "../../components/CardCarousel";
 import SampleCards from "../../components/SampleCards";
 import NoFile from "../../components/NoFile";
-import Logo from "../../assets/svg/Logo";
 
 export default function AllStartupPage() {
   const [data, setData] = useState([]);
@@ -113,10 +112,6 @@ export default function AllStartupPage() {
   return (
     <>
       {loading && <Loading />}
-      <LogoEdit>
-        <Logo />
-      </LogoEdit>
-      <TopBackground />
       <PanelStartups>
         <Slider
           {...settings}

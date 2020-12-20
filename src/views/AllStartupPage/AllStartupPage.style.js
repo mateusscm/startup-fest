@@ -1,22 +1,7 @@
 import styled, { css } from "styled-components";
 
-export const TopBackground = styled.div`
-  background: linear-gradient(
-    94.2deg,
-    #3f4b69 0%,
-    rgba(166, 78, 146, 0.99) 100%
-  );
-  width: 100%;
-  height: 225px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-`;
-
 export const PanelStartups = styled.div`
-  margin-top: 100px;
-  width: 1000px;
+  /* width: 1000px;
   background-color: transparent;
   height: auto;
   transition: width 0.5s ease-in-out;
@@ -31,8 +16,7 @@ export const PanelStartups = styled.div`
 
   @media screen and (max-width: 600px) {
     width: 90vw;
-    margin-top: 90px;
-  }
+  } */
 
   & div {
     outline: none;
@@ -109,16 +93,5 @@ export const CardStartup = styled.div`
       css`
         filter: blur(2px);
       `}
-  }
-`;
-
-export const LogoEdit = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-
-  & svg {
-    width: 150px;
-    height: 90px;
   }
 `;
