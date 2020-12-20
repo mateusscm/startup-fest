@@ -2,24 +2,21 @@ import React, { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
-import ReactStars from "react-rating-stars-component";
-import {
-  TopBackground,
-  PanelStartups,
-  CardStartup,
-  ImageStartup,
-  SampleCard,
-} from "./AllStartupPage.style";
-import juristec from "../../assets/juristec.jpg";
+
+import { TopBackground, PanelStartups, LogoEdit } from "./AllStartupPage.style";
+
 import Slider from "react-slick";
 import Loading from "../../components/Loading";
-import More from "../../assets/svg/More";
+import CardCarousel from "../../components/CardCarousel";
+import SampleCards from "../../components/SampleCards";
+import NoFile from "../../components/NoFile";
+import Logo from "../../assets/svg/Logo";
 
 export default function AllStartupPage() {
   const [data, setData] = useState([]);
   const [detail, setDetail] = useState({});
   const [loading, setLoading] = useState(false);
-  const [star, setStar] = useState(0);
+  // const [star, setStar] = useState(0);
   const [selectedStartup, setSelectedStartup] = useState();
   const [openCollapse, setOpenCollapse] = useState(false);
 
@@ -28,7 +25,6 @@ export default function AllStartupPage() {
     axios
       .get("http://localhost:5000/startups")
       .then(async (res) => {
-        console.log(res.data["startups"]);
         setData(res.data["startups"]);
         setLoading(false);
       })
@@ -53,9 +49,8 @@ export default function AllStartupPage() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
-          dots: true,
         },
       },
       {
@@ -103,11 +98,9 @@ export default function AllStartupPage() {
   //     });
   // };
 
-  console.log(detail);
-
-  const handleChangeCarousel = (old, next) => {
-    toggleBtn(data?.[next]);
-  };
+  // const handleChangeCarousel = (old, next) => {
+  //   toggleBtn(data?.[next]);
+  // };
 
   const handleOpenCollapse = () => {
     setOpenCollapse((p) => !p);
@@ -120,134 +113,48 @@ export default function AllStartupPage() {
   return (
     <>
       {loading && <Loading />}
+      <LogoEdit>
+        <Logo />
+      </LogoEdit>
       <TopBackground />
       <PanelStartups>
         <Slider
           {...settings}
-          beforeChange={(oldIndex, nextIndex) =>
-            handleChangeCarousel(oldIndex, nextIndex)
-          }
+          // beforeChange={(oldIndex, nextIndex) =>
+          //   handleChangeCarousel(oldIndex, nextIndex)
+          // }
         >
           {data.length !== 0 &&
             data.map((startup) => (
-              <>
-                <CardStartup
-                  key={startup.id}
-                  onClick={() => toggleBtn(startup)}
-                  selected={
-                    selectedStartup ? selectedStartup.id === startup.id : false
-                  }
-                >
-                  <ImageStartup
-                    className="image"
-                    src={startup.thumbnail ? startup.thumbnail : juristec}
-                  />
-                </CardStartup>
-                <span>{startup.startup_name}</span>
-              </>
+              <CardCarousel
+                key={startup.id}
+                startup={startup}
+                toggleBtn={toggleBtn}
+                selectedStartup={selectedStartup}
+              />
             ))}
         </Slider>
 
         {Object.keys(detail).length !== 0 ? (
-          <SampleCard open={openCollapse}>
-            <div className="content">
-              <div className="container-img">
-                <ImageStartup
-                  selected={false}
-                  src={selectedStartup.thumbnail}
-                />
-              </div>
-              <div className="container-info">
-                <span>{detail.startup_name}</span>
-                <span>{detail.description}</span>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: "auto",
-                    alignItems: "flex-end",
-                  }}
-                >
-                  <span>{detail.city}</span>
-                  <button
-                    className="button-open"
-                    type="button"
-                    // onClick={() => handleRate(detail.id, 3, "pitch")}
-                    onClick={handleOpenCollapse}
-                  >
-                    Avaliar &nbsp;
-                    <More />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <span className="badge">{detail.category}</span>
-            <div className="collapsable">
-              <div className="explanation">
-                <span className="title">Faça a sua votação!</span>
-                <span className="subtitle">
-                  Você deverá classificar a empresa de acordo com as modalidades
-                  abaixo:
-                </span>
-                <span className="desc">
-                  <b>Proposta:</b> A ideia / proposta agradou o ouvinte e teve
-                  um bom impacto
-                </span>
-                <span className="desc">
-                  <b>Apresentação/Pitch:</b> Se a startup soube demonstrar a sua
-                  proposta
-                </span>
-                <span className="desc">
-                  <b>Desenvolvimento:</b> No estagio atual do produto / serviço,
-                  atende bem a proposta?
-                </span>
-              </div>
-              <div className="rating">
-                <div className="rate">
-                  <span>Proposta: </span>
-                  <ReactStars
-                    count={5}
-                    onChange={ratingChanged}
-                    size={32}
-                    isHalf={true}
-                    emptyIcon={<i className="far fa-star"></i>}
-                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                    fullIcon={<i className="fa fa-star"></i>}
-                    activeColor="#ffd700"
-                  />
-                </div>
-                <div className="rate">
-                  <span>Apresentação/Pitch: </span>
-                  <ReactStars
-                    count={5}
-                    onChange={ratingChanged}
-                    size={32}
-                    isHalf={true}
-                    emptyIcon={<i className="far fa-star"></i>}
-                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                    fullIcon={<i className="fa fa-star"></i>}
-                    activeColor="#ffd700"
-                  />
-                </div>
-                <div className="rate">
-                  <span>Desenvolvimento: </span>
-                  <ReactStars
-                    count={5}
-                    onChange={ratingChanged}
-                    size={32}
-                    isHalf={true}
-                    emptyIcon={<i className="far fa-star"></i>}
-                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                    fullIcon={<i className="fa fa-star"></i>}
-                    activeColor="#ffd700"
-                  />
-                </div>
-              </div>
-            </div>
-          </SampleCard>
+          <SampleCards
+            openCollapse={openCollapse}
+            selectedStartup={selectedStartup}
+            detail={detail}
+            handleOpenCollapse={handleOpenCollapse}
+            ratingChanged={ratingChanged}
+          />
         ) : (
-          // <Carousel />
-          <h3>Escolha uma empresa acima</h3>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <hr style={{ width: "50%" }} />
+            <NoFile />
+          </div>
+          // <h3>Escolha uma empresa acima</h3>
         )}
       </PanelStartups>
     </>
