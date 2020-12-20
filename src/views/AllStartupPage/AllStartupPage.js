@@ -15,7 +15,7 @@ export default function AllStartupPage() {
   const [data, setData] = useState([]);
   const [detail, setDetail] = useState({});
   const [loading, setLoading] = useState(false);
-  // const [star, setStar] = useState(0);
+  const [star, setStar] = useState(0);
   const [selectedStartup, setSelectedStartup] = useState();
   const [openCollapse, setOpenCollapse] = useState(false);
 
@@ -85,21 +85,21 @@ export default function AllStartupPage() {
       });
   };
 
-  // const handleRate = (id, newRate, type) => {
-  //   setStar((p) => ({ ...p, [type]: newRate }));
-  //   axios
-  //     .post(`http://localhost:5000/startups/rate/${id}`, {
-  //       rate: newRate,
-  //       type,
-  //     })
-  //     .then(async (res) => {
-  //       console.log(res);
-  //     });
-  // };
+  const handleRate = (id, newRate, type) => {
+    setStar((p) => ({ ...p, [type]: newRate }));
+    axios
+      .post(`http://localhost:5000/startups/rate/${id}`, {
+        rate: newRate,
+        type,
+      })
+      .then(async (res) => {
+        console.log(res);
+      });
+  };
 
-  // const handleChangeCarousel = (old, next) => {
-  //   toggleBtn(data?.[next]);
-  // };
+  const handleChangeCarousel = (old, next) => {
+    toggleBtn(data?.[next]);
+  };
 
   const handleOpenCollapse = () => {
     setOpenCollapse((p) => !p);
@@ -137,6 +137,7 @@ export default function AllStartupPage() {
             detail={detail}
             handleOpenCollapse={handleOpenCollapse}
             ratingChanged={ratingChanged}
+            handleRate={handleRate}
           />
         ) : (
           <div
