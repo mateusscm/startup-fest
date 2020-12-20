@@ -5,6 +5,6 @@ Go to your project directory, and run:
 
 # Installing and Running the SERVER
 
-In the project directory, navigate to the server folder #### `src/server`
+In the project directory, navigate to the server folder `src/server`
 After that, you'll run: 
 ### `yarn install` and when it´s done, run `yarn start`
