@@ -11,6 +11,7 @@ export default function SampleCards({
   detail,
   handleOpenCollapse,
   ratingChanged,
+  handleRate,
 }) {
   return (
     <SampleCard open={openCollapse}>
@@ -75,7 +76,9 @@ export default function SampleCards({
             <span>Proposta: </span>
             <ReactStars
               count={5}
-              onChange={ratingChanged}
+              onChange={(newRating) =>
+                handleRate(detail.id, newRating, "proposta")
+              }
               size={32}
               isHalf={true}
               emptyIcon={<i className="far fa-star"></i>}
@@ -88,7 +91,9 @@ export default function SampleCards({
             <span>Apresentação/Pitch: </span>
             <ReactStars
               count={5}
-              onChange={ratingChanged}
+              onChange={(newRating) =>
+                handleRate(detail.id, newRating, "pitch")
+              }
               size={32}
               isHalf={true}
               emptyIcon={<i className="far fa-star"></i>}
@@ -101,7 +106,9 @@ export default function SampleCards({
             <span>Desenvolvimento: </span>
             <ReactStars
               count={5}
-              onChange={ratingChanged}
+              onChange={(newRating) =>
+                handleRate(detail.id, newRating, "desenvolvimento")
+              }
               size={32}
               isHalf={true}
               emptyIcon={<i className="far fa-star"></i>}
