@@ -28,7 +28,16 @@ app.get("/startups", async (req, res) => {
 });
 
 app.get("/startups/rate", async (req, res) => {
-  return res.status(200).json(ratings);
+  const rates = { proposta: [], pitch: [], desenvolvimento: [] };
+
+  Object.keys(ratings).forEach((id) => {
+    const types = ratings[id];
+    Object.keys(types).forEach((type) => {
+      rates[type].push({ id, count: types[type] });
+    });
+  });
+
+  return res.status(200).json(rates);
 });
 
 app.get("/startups/:id", async (req, res) => {
