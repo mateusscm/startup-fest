@@ -23,8 +23,8 @@ export const PanelStartups = styled.div`
   }
 
   .slick-slider {
-    /* padding: 10px 0px; */
-    padding: 10px 35px;
+    padding: 10px 0px;
+    /* padding: 10px 35px; */
   }
 
   .slick-prev {

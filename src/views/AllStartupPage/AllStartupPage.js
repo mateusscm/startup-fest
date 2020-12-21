@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
@@ -11,27 +11,12 @@ import CardCarousel from "../../components/CardCarousel";
 import SampleCards from "../../components/SampleCards";
 import NoFile from "../../components/NoFile";
 
-export default function AllStartupPage() {
-  const [data, setData] = useState([]);
+export default function AllStartupPage({ data }) {
   const [detail, setDetail] = useState({});
   const [loading, setLoading] = useState(false);
   const [star, setStar] = useState(0);
   const [selectedStartup, setSelectedStartup] = useState();
   const [openCollapse, setOpenCollapse] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("http://localhost:5000/startups")
-      .then(async (res) => {
-        setData(res.data["startups"]);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  }, []);
 
   const settings = {
     className: "center",
@@ -42,7 +27,7 @@ export default function AllStartupPage() {
     focusOnSelect: true,
     slidesToShow: 3,
     speed: 500,
-    // arrows: false,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -71,6 +56,7 @@ export default function AllStartupPage() {
 
   const toggleBtn = (company) => {
     setLoading(true);
+    setDetail({});
     // setOpenCollapse(false);
     setSelectedStartup(company);
     axios
@@ -97,10 +83,6 @@ export default function AllStartupPage() {
       });
   };
 
-  const handleChangeCarousel = (old, next) => {
-    toggleBtn(data?.[next]);
-  };
-
   const handleOpenCollapse = () => {
     setOpenCollapse((p) => !p);
   };
@@ -113,12 +95,7 @@ export default function AllStartupPage() {
     <>
       {loading && <Loading />}
       <PanelStartups>
-        <Slider
-          {...settings}
-          // beforeChange={(oldIndex, nextIndex) =>
-          //   handleChangeCarousel(oldIndex, nextIndex)
-          // }
-        >
+        <Slider {...settings}>
           {data.length !== 0 &&
             data.map((startup) => (
               <CardCarousel
@@ -126,6 +103,7 @@ export default function AllStartupPage() {
                 startup={startup}
                 toggleBtn={toggleBtn}
                 selectedStartup={selectedStartup}
+                star={star}
               />
             ))}
         </Slider>
