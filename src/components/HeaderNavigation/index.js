@@ -23,8 +23,8 @@ export default function HeaderNavigation({ routes }) {
         <ContainerList>
           {routes?.map((route) => {
             return (
-              <li key={Math.random()}>
-                <NavItem to={route.path}>
+              <li key={route.path}>
+                <NavItem to={route.path} exact>
                   {route.alias}
                   <div className="bar" />
                 </NavItem>
