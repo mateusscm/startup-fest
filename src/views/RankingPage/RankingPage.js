@@ -46,53 +46,66 @@ export default function RankingPage({ data }) {
     return 0;
   };
 
-  // console.log(data);
-  console.log(startupRated);
-
   return (
     <>
       {loading && <Loading />}
       <ContainerPage>
         <Banner src={banner} />
         <ContainerRank>
-          <div className="content-rank">
-            <span>Proposta</span>
-            {startupRated?.["proposta"].sort(sortF).map((info, position) => (
-              <MiniCard
-                startupName={info.startup_name}
-                badge={info.category}
-                image={info.thumbnail}
-                count={info.count}
-                position={position + 1}
-              />
-            ))}
-          </div>
-          <div className="content-rank">
-            <span>Apresentação / Pitch</span>
-            {startupRated?.["pitch"].sort(sortF).map((info, position) => (
-              <MiniCard
-                startupName={info.startup_name}
-                badge={info.category}
-                image={info.thumbnail}
-                count={info.count}
-                position={position + 1}
-              />
-            ))}
-          </div>
-          <div className="content-rank">
-            <span>Desenvolvimento</span>
-            {startupRated?.["desenvolvimento"]
-              .sort(sortF)
-              .map((info, position) => (
-                <MiniCard
-                  startupName={info.startup_name}
-                  badge={info.category}
-                  image={info.thumbnail}
-                  count={info.count}
-                  position={position + 1}
-                />
-              ))}
-          </div>
+          {startupRated?.["proposta"].length !== 0 ||
+          startupRated?.["pitch"].length !== 0 ||
+          startupRated?.["proposta"].length !== 0 ? (
+            <>
+              <div className="content-rank">
+                {startupRated?.["proposta"].length !== 0 && (
+                  <span>Proposta</span>
+                )}
+                {startupRated?.["proposta"]
+                  .sort(sortF)
+                  .map((info, position) => (
+                    <MiniCard
+                      startupName={info.startup_name}
+                      badge={info.category}
+                      image={info.thumbnail}
+                      count={info.count}
+                      position={position + 1}
+                    />
+                  ))}
+              </div>
+              <div className="content-rank">
+                {startupRated?.["pitch"].length !== 0 && (
+                  <span>Apresentação / Pitch</span>
+                )}
+                {startupRated?.["pitch"].sort(sortF).map((info, position) => (
+                  <MiniCard
+                    startupName={info.startup_name}
+                    badge={info.category}
+                    image={info.thumbnail}
+                    count={info.count}
+                    position={position + 1}
+                  />
+                ))}
+              </div>
+              <div className="content-rank">
+                {startupRated?.["desenvolvimento"].length !== 0 && (
+                  <span>Desenvolvimento</span>
+                )}
+                {startupRated?.["desenvolvimento"]
+                  .sort(sortF)
+                  .map((info, position) => (
+                    <MiniCard
+                      startupName={info.startup_name}
+                      badge={info.category}
+                      image={info.thumbnail}
+                      count={info.count}
+                      position={position + 1}
+                    />
+                  ))}
+              </div>
+            </>
+          ) : (
+            "Não tem nada por enquanto"
+          )}
         </ContainerRank>
       </ContainerPage>
     </>
