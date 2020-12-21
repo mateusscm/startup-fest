@@ -10,7 +10,6 @@ export default function SampleCards({
   selectedStartup,
   detail,
   handleOpenCollapse,
-  ratingChanged,
   handleRate,
 }) {
   return (
@@ -85,6 +84,7 @@ export default function SampleCards({
               halfIcon={<i className="fa fa-star-half-alt"></i>}
               fullIcon={<i className="fa fa-star"></i>}
               activeColor="#ffd700"
+              value={detail?.rate?.proposta || 0}
             />
           </div>
           <div className="rate">
@@ -100,6 +100,7 @@ export default function SampleCards({
               halfIcon={<i className="fa fa-star-half-alt"></i>}
               fullIcon={<i className="fa fa-star"></i>}
               activeColor="#ffd700"
+              value={detail?.rate?.pitch || 0}
             />
           </div>
           <div className="rate">
@@ -115,6 +116,7 @@ export default function SampleCards({
               halfIcon={<i className="fa fa-star-half-alt"></i>}
               fullIcon={<i className="fa fa-star"></i>}
               activeColor="#ffd700"
+              value={detail?.rate?.desenvolvimento || 0}
             />
           </div>
         </div>
